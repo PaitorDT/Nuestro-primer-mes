@@ -21,6 +21,24 @@ body.noche {
     background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
 }
 
+/* 🌄 FONDO INICIO */
+#inicio {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)),
+    url("https://images.unsplash.com/photo-1518199266791-5375a83190b7");
+
+    background-size: cover;
+    background-position: center;
+}
+
 /* 🌌 Estrellas */
 .estrella {
     position: fixed;
@@ -46,12 +64,6 @@ body.noche {
 @keyframes aparecer {
     from {opacity: 0; transform: translateY(20px);}
     to {opacity: 1; transform: translateY(0);}
-}
-
-#inicio {
-    position: absolute;
-    width: 100%;
-    top: 40%;
 }
 
 /* Corazones */
@@ -102,6 +114,11 @@ button {
     border-radius: 25px;
     border: none;
     cursor: pointer;
+    transition: transform 0.2s;
+}
+
+button:hover {
+    transform: scale(1.1);
 }
 
 /* Final */
@@ -110,6 +127,8 @@ button {
 </head>
 
 <body>
+
+<div id="app">
 
 <div id="corazones-bg"></div>
 
@@ -130,6 +149,9 @@ button {
     </div>
 </div>
 
+</div>
+
+<!-- 🔊 Audios -->
 <audio id="musica" loop>
     <source src="cancion.mp3" type="audio/mpeg">
 </audio>
@@ -163,6 +185,9 @@ const contador = document.getElementById("contador");
 const final = document.getElementById("final");
 const nombre = document.getElementById("nombre");
 const latido = document.getElementById("latido");
+
+/* volumen */
+musica.volume = 0.4;
 
 /* 🌌 estrellas */
 for(let i=0;i<80;i++){
@@ -211,9 +236,6 @@ window.iniciar=function(){
     musica.play().catch(()=>{});
     nombre.style.opacity=1;
 
-    let voz=new SpeechSynthesisUtterance("Yacory...");
-    speechSynthesis.speak(voz);
-
     escribir();
     setInterval(corazones,300);
     contadorTiempo();
@@ -232,7 +254,6 @@ window.respuesta=function(){
 
     latido.play().catch(()=>{});
 
-    // 💥 explosión
     for(let i=0;i<80;i++){
         setTimeout(()=>{
             const c=document.createElement("div");
@@ -260,7 +281,7 @@ window.respuesta=function(){
 
     setTimeout(()=>{
 
-        document.body.innerHTML=`
+        document.getElementById("app").innerHTML=`
         <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;">
             <h1 style="animation:zoom 2s;">💖 Te amo mucho Yacory 💖</h1>
             <p>Gracias por este mes tan bonito 🥹<br>Y por todos los que vienen ❤️</p>
@@ -283,9 +304,9 @@ window.respuesta=function(){
     },1000);
 };
 
-/* 💌 CARTA SECRETA */
+/* 💌 CARTA */
 window.mostrarCarta=function(){
-    document.body.innerHTML=`
+    document.getElementById("app").innerHTML=`
     <div style="display:flex;justify-content:center;align-items:center;height:100vh;padding:20px;text-align:center;">
         <div style="background:rgba(255,255,255,0.1);padding:25px;border-radius:20px;">
             <h2>Para ti, amorcito 💖</h2>
@@ -293,7 +314,7 @@ window.mostrarCarta=function(){
             No sé cómo empezó todo...<br>
             pero sí sé que quiero que continúe 🥹<br><br>
             Gracias por hacerme feliz ❤️<br>
-            Este es solo el comienzo 💫
+            Este es solo el comienzo de nuestra historia 💫
             </p>
         </div>
     </div>
